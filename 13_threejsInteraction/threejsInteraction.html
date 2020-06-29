@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>Three.js Interaction</title>
+
+<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../libs/jquery-ui/jquery-ui.js"></script>
+
+<script src="../libs/three.js/three.js"></script>
+
+<script src="../libs/tween.js/tween.js"></script>
+<script src="../libs/keyframe.js/keyframe.js"></script>
+
+<script src="../libs/three.js/loaders/inflate.min.js"></script>
+<script src="../libs/three.js/loaders/FBXLoader.js"></script>
+<script src="../libs/three.js/utils/cloneFBX.js"></script>
+
+<script src="threejsInteraction.js"></script>
+
+<style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      border: 0;
+      overflow: hidden; 
+      display: block;  
+    }
+</style>
+
+<script type="text/javascript">
+  
+	$(document).ready(
+			function() {
+
+				var canvas = document.getElementById("webglcanvas");
+
+                createScene(canvas);
+
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas"></canvas>
+</div>
+
+</html>

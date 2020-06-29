@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<title>Box</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<script src="../libs/gl-matrix/gl-matrix.js"></script>
+<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src=box_triangle.js></script>
+
+<script type="text/javascript">
+
+// Jquery that detects the state of rediness. Code inside the function will only run once the page DOM is ready for Javascript code to execute.
+	$(document).ready(
+			function() {
+                let canvas = document.getElementById("webglcanvas");
+                
+                let gl = initWebGL(canvas);
+                initGL(gl, canvas);
+		        initViewport(gl, canvas);
+                initShader(gl);
+
+                let square = createSquare(gl);
+                let triangle = createTriangle(gl);
+
+                mat4.identity(modelViewMatrix);
+                mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.0, -3.333]);
+                draw(gl, square);
+                
+                mat4.identity(modelViewMatrix);
+                mat4.translate(modelViewMatrix, modelViewMatrix, [1, 0.0, -3.333]);
+                draw(gl, triangle);
+			}
+	);
+</script>
+
+</head>
+
+<!-- All WebGL rendering takes place in a context. This structure is provided in the HTML5 Canvas element. -->
+<body>
+    <canvas id="webglcanvas" style="border: none;" width="800px" height="600px" ></canvas>
+</body>
+
+</html>
+

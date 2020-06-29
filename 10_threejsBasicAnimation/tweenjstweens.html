@@ -1,0 +1,109 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tweening with Tween.js</title>
+
+
+<link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="../libs/colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/tweenjstweens.css" />
+
+<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../libs/jquery-ui/jquery-ui.js"></script>
+<script src="../libs/three.js/three.js"></script>
+<script src="../libs/three.js/controls/OrbitControls.js"></script>
+<script src="../libs/colorpicker/js/colorpicker.js"></script>
+<script src="../libs/tween.js/tween.js"></script>
+
+<script src="tweenjstweens.js"></script>
+<script src="sceneHandler_Tween.js"></script>
+
+<script type="text/javascript">
+	
+	$(document).ready(
+			function() {
+
+				let canvas = document.getElementById("webglcanvas");
+
+				// create the scene
+				createScene(canvas);
+
+				// initialize the controls
+				initControls();
+				
+				// create the animations
+				playAnimations();
+				
+		        // Run the run loop
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+	<div id="title">
+		Tweening with Tween.js
+	</div>
+
+	<div id="prompt">
+		Drag the mouse to rotate the camera<br>Use the scroll wheel to zoom.
+	</div>
+</div>
+
+<div id="properties">
+Use these controls to change properties
+<div id="delayLabel">Delay</div>
+<div class="slider" id="delaySlider"></div>
+<div id="delayValue">0.25s</div>
+<div id="durationLabel">Duration</div>
+<div class="slider" id="durationSlider"></div>
+<div id="durationValue">2s</div>
+
+<div id="tweenPosition">
+Tween Position<input type="checkbox" id="tweenPositionCheckbox" checked>
+</div>
+
+<div id="tweenRotation">
+Tween Rotation<input type="checkbox" id="tweenRotationCheckbox" checked>
+</div>
+
+<div id="tweenColor">
+Tween Color<input type="checkbox" id="tweenColorCheckbox" checked>
+</div>
+
+<div id="tweenOpacity">
+Tween Opacity<input type="checkbox" id="tweenOpacityCheckbox" checked>
+</div>
+
+<div id="easingPicker">
+Easing Function
+<div id="easingRBGroup">
+<input type="radio" name="easingRBGroup" value="none" checked> None<br>
+<input type="radio" name="easingRBGroup" value="quadratic"> Quadratic<br>
+<input type="radio" name="easingRBGroup" value="cubic" > Cubic<br>
+<input type="radio" name="easingRBGroup" value="quartic"> Quartic<br>
+<input type="radio" name="easingRBGroup" value="quintic"> Quintic<br>
+<input type="radio" name="easingRBGroup" value="sinusoidal"> Sinusoidal<br>
+<input type="radio" name="easingRBGroup" value="exponential"> Exponential<br>
+<input type="radio" name="easingRBGroup" value="circular"> Circular<br>
+<input type="radio" name="easingRBGroup" value="elastic"> Elastic<br>
+<input type="radio" name="easingRBGroup" value="back"> Back<br>
+<input type="radio" name="easingRBGroup" value="bounce"> Bounce<br>
+</div>
+</div>
+
+<button id="playButton" onClick="playAnimations();">Play</button>
+
+<div id="loop">
+Loop Animation<input type="checkbox" id="loopCheckbox" unchecked>
+</div>
+
+</div>
+
+</html>

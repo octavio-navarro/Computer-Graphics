@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Processing Sample</title>
+
+    <script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../libs/three.js/three.min.js"></script>
+    <script src="../libs/three.js/utils/dat.gui.min.js"></script>
+
+    <!-- All the postprocessing dependencies  -->
+    <script src="../libs/three.js/postProcessing/EffectComposer.js"></script>
+    
+    <script src="../libs/three.js/postProcessing/RenderPass.js"></script>
+
+    <script src="../libs/three.js/postProcessing/CopyShader.js"></script>
+    <script src="../libs/three.js/postProcessing/ShaderPass.js"></script>
+    
+    <script src="../libs/three.js/postProcessing/LuminosityHighPassShader.js"></script>
+    <script src="../libs/three.js/postProcessing/UnrealBloomPass.js"></script>
+
+    <script src="postProcessing.js"></script>
+    
+    <script type="text/javascript">
+
+        $(document).ready(
+                function() {
+    
+                    createScene(document.getElementById("webGLCanvas"));
+                    
+                    // Run the run loop
+                    update();
+                }
+        );
+    
+    </script>
+
+    <style>
+        html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        border: 0;
+        overflow: hidden; 
+        display: block;  
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="webGLCanvas"></canvas>
+</body>
+</html>

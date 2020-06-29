@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Simple Key Frame Animation</title>
+
+<link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="../libs/colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/keyframeanimation.css" />
+
+<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../libs/jquery-ui/jquery-ui.js"></script>
+
+<script src="../libs/three.js/three.js"></script>
+<script src="../libs/three.js/controls/OrbitControls.js"></script>
+<script src="../libs/colorpicker/js/colorpicker.js"></script>
+
+
+<script src="../libs/tween.js/tween.js"></script>
+<script src="../libs/keyframe.js/keyframe.js"></script>
+
+<script src="threejsKeyframe.js"></script>
+<script src="ui.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+
+				var canvas = document.getElementById("webglcanvas");
+
+				// create the scene
+				createScene(canvas);
+
+				// initialize the controls
+				initControls();
+				
+				// create the animations
+				playAnimations();
+				
+		        // Run the run loop
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+	<div id="title">
+		Key Frame Animation
+	</div>
+
+	<div id="prompt">
+		Drag the mouse to rotate the camera<br>Use the scroll wheel to zoom.
+	</div>
+</div>
+
+<div id="properties">
+Use these controls to change properties
+<div id="durationLabel">Duration</div>
+<div class="slider" id="durationSlider"></div>
+<div id="durationValue">10s</div>
+
+<div id="animateCrate">
+Animate Crate<input type="checkbox" id="animateCrateCheckbox" checked>
+</div>
+
+<div id="animateWaves">
+Animate Waves<input type="checkbox" id="animateWavesCheckbox" checked>
+</div>
+
+<div id="animateLight">
+Animate Light<input type="checkbox" id="animateLightCheckbox" checked>
+</div>
+
+<div id="animateWater">
+Animate Water<input type="checkbox" id="animateWaterCheckbox" checked>
+</div>
+
+<button id="playButton" onClick="playAnimations();">Play</button>
+
+<div id="loop">
+Loop Animation<input type="checkbox" id="loopCheckbox" unchecked>
+</div>
+
+</div>
+
+</html>

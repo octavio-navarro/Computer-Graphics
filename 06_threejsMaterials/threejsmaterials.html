@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Three.js Materials</title>
+
+		<link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
+		<link rel="stylesheet" href="../libs/colorpicker/css/colorpicker.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" href="../css/threejsmaterials.css" />
+		
+		<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+		<script src="../libs/jquery-ui/jquery-ui.js"></script>
+		<script src="../libs/three.js/three.js"></script>
+		
+		
+		<script src="../libs/colorpicker/js/colorpicker.js"></script>
+
+		<script src="threejsMaterials.js"></script>
+		<script src="sceneHandlers.js"></script>
+
+		<script type="text/javascript">
+
+		$(document).ready(
+					function() {
+
+						var canvas = document.getElementById("webglcanvas");
+
+						// create the scene
+						createScene(canvas);
+
+						// initialize the controls
+						initControls();
+						
+						// Run the run loop
+						run();
+					}
+			);
+
+		</script>
+
+	</head>
+	<body>
+
+		<div id="container">
+			<canvas id="webglcanvas" width=800 height=600></canvas>
+			<div id="title">
+				Three.js Materials
+			</div>
+			<div id="prompt">
+				Drag the mouse to rotate the scene<br>Drag the slider to scale.
+			</div>
+			<div id="status">
+				<div id="rotation">rotation: 0,0,0</div>
+				<div id="scale">scale: 1</div>
+			</div>
+			<div id="slider"></div>
+		</div>
+
+		<div id="properties"> Use these controls to change properties
+			<div id="materialPicker"> Material
+				<div id="materialRBGroup">
+					<input type="radio" name="materialRBGroup" value="basic"> Basic (Unlit)<br>
+					<input type="radio" name="materialRBGroup" value="phong" checked> Phong<br>
+					<input type="radio" name="materialRBGroup" value="lambert"> Lambert
+				</div>
+
+				<div id="materialWireframe">
+					<input type="checkbox" id="wireframeCheckbox">Wireframe</input>
+				</div>
+			</div>
+
+			<div id="texturePicker"> Texture 
+				<input type="checkbox" checked id="textureCheckbox"></input> 
+				<div id="textureUrl"></div> 
+				<div id="texture" class="ui-widget-content ui-corner-all swatch"></div>
+			</div> 
+
+			<div id="diffuseColor" class="colorSelector">Diffuse color<div style="background-color: #ffffff"></div></div>
+			<div id="specularColor" class="colorSelector">Specular color<div style="background-color: #ffffff"></div></div>
+		</div>
+
+	</body>
+</html>

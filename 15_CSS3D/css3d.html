@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Threejs CSS 3D</title>
+
+    <link rel="stylesheet" href="css3d.css" />
+
+    <script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+
+    <script src="https://rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+    <script src="../libs/three.js/controls/OrbitControls.js"></script>
+    <script src="../libs/three.js/renderers/CSS3DRenderer.js"></script>
+
+    <script src="css3d.js"></script>
+
+    <script type="text/javascript">
+  
+        $(document).ready(
+                function() {
+                    console.log( THREE.REVISION );
+                    // create the scene
+                    createScene();
+                        
+                    // Run the run loop
+                    run();
+                }
+        );
+    
+    </script>
+</head>
+<body>  
+    <div id="container"></div>
+</body>
+</html>

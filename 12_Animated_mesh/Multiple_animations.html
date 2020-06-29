@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Three.js Morph targets</title>
+
+<link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/threejsshadows.css" />
+
+<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../libs/jquery-ui/jquery-ui.js"></script>
+
+<script src="../libs/three.js/three.js"></script>
+<script src="../libs/three.js/controls/OrbitControls.js"></script>
+
+<script src="../libs/three.js/loaders/GLTFLoader.js"></script>
+<script src="../libs/three.js/loaders/DRACOLoader.js"></script>
+
+<script src="../libs/three.js/utils/promiseLoader.js"></script>
+
+<script src="../libs/keyframe.js/keyframe.js"></script>
+
+<script src="Multiple_animations.js"></script>
+
+<script type="text/javascript">
+
+
+function initControls()
+{
+    $("input[name=animation]").click(
+        function() {
+            var id = $("input[name=animation]:checked").attr('value');
+            changeAnimation(id);                
+        }
+    );
+}
+
+</script>
+
+<script type="text/javascript">
+  
+	$(document).ready(
+			function() {
+
+				var canvas = document.getElementById("webglcanvas");
+
+				// create the scene
+				createScene(canvas);
+
+				// initialize the controls
+				initControls();
+				
+		        // Run the run loop
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+	<div id="title">Three.js Morph Targets</div>
+</div>
+
+<div id="animations"> 
+	Animations
+	<form>
+		<input type="radio" name="animation" value="idle" checked id="idleradio">Idle<br> 
+		<input type="radio" name="animation" value="back" id="walkradio">Back<br> 
+		<input type="radio" name="animation" value="Run_L" id="runradio">Run<br> 
+		<input type="radio" name="animation" value="Threaten" id="attackradio">Attack<br> 
+		<input type="radio" name="animation" value="dead" id="deadradio">Dead<br> 
+	</form>
+</div> 
+
+
+</body>
+
+
+</html>
