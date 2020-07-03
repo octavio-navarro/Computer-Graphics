@@ -69,23 +69,11 @@ function createTriangle(gl)
     let vertexBuffer;
     vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    // let verts = [
-    //     0.0,  0.5,  0.0,
-    //     -.5,  -.5,  0.0,
-    //     .5, -.5,  0.0,
-    //     0, -1, 0
-    // ];
-    let verts = [0,0,0];
-
-    let radio = 0.5;
-
-    for(let angulo = 30; angulo <= 330; angulo+=30)
-    {
-        let rad = angulo * Math.PI / 180;
-        verts.push(Math.cos(rad) * radio);
-        verts.push(Math.sin(rad) * radio);
-        verts.push(0);
-    }
+    let verts = [
+        0.0,  0.5,  0.0,
+        -.5,  -.5,  0.0,
+        .5, -.5,  0.0,
+    ];
 
     // void gl.bufferData(target, ArrayBufferView srcData, usage, srcOffset, length);
     // target = gl.ARRAY_BUFFER: Buffer containing vertex attributes, such as vertex coordinates, texture coordinate data, or vertex color data.
