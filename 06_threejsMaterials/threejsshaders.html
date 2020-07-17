@@ -22,8 +22,8 @@
 
 	varying vec2 texCoord;
 
-	void main( void ) {
-
+	void main( void ) 
+	{
 		/*Texture2D - Retrieves texels (i.e. the color) of a texture for the given coordinates.
 		vec4 texture2D(sampler2D sampler, vec2 coord)
 		sampler - specifies the sampler to which the texture from which texels will be retrieved is bound.
@@ -31,19 +31,24 @@
 		*/
 		vec4 noise = texture2D( noiseTexture, texCoord );
 		
-		vec2 T1 = texCoord + vec2( 1.5, -1.5 ) * time;
-		vec2 T2 = texCoord + vec2( -0.5, 1.5 ) * time; 
+		vec2 T1 = texCoord + vec2( 1, 1 ) * time;
+		vec2 T2 = texCoord + vec2( -1, 1 ) * time; 
 
-		T1.x += noise.r * 4.0;
-		T1.y += noise.g * 4.0;
+		//vec4 color = texture2D( glowTexture, T2 );
 
-		T2.x += noise.g * 0.2;
-		T2.y += noise.b * 0.2;
+		T1.x += noise.a * 0.1;
+		T1.y += noise.a * 0.1;
 
-		float alpha = texture2D( noiseTexture, T1 * 2.0 ).a ;//- 0.25;
-
+		T2.x += noise.r * 0.2;
+		T2.y += noise.r * 0.2;
+		
+		float alpha = texture2D( noiseTexture, T1 ).a; // * 0.75;
+		
 		vec4 color = texture2D( glowTexture, T2 );
-		vec4 newColor = vec4( alpha, alpha, alpha, alpha ) + ( color * color );
+
+		vec4 newColor = vec4( alpha, alpha, alpha, alpha ) + ( color * color * color );
+		//vec4 newColor = color;
+		
 		gl_FragColor = newColor;
 	}
 

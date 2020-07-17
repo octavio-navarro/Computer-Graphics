@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - materials - shaders [lava]</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="../../css/main.css">
+		
+		<script id="fragmentShader" type="x-shader/x-fragment">
+				uniform float time;
+
+				uniform float fogDensity;
+				uniform vec3 fogColor;
+
+				// Textura de transparencia
+				uniform sampler2D texture1;
+
+				// Textura de lava
+				uniform sampler2D texture2;
+
+				varying vec2 vUv;
+
+				void main( void ) {
+
+					vec4 noise = texture2D( texture1, vUv );
+					
+					vec4 color = texture2D( texture2, T2 );
+
+					vec4 temp = color;
+					
+					gl_FragColor = temp ;
+				}
+		</script>
+
+		<script id="vertexShader" type="x-shader/x-vertex">
+				uniform vec2 uvScale;
+				varying vec2 vUv;
+
+				void main()
+				{
+					vUv = uvScale * uv;
+					vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+					gl_Position = projectionMatrix * mvPosition;
+				}
+		</script>
+		
+		<script src="../../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+		<script src="../../libs/jquery-ui/jquery-ui.js"></script>
+		<script src="../../libs/three.js/three.min.js"></script>
+		<script src="sun_shader.js"></script>
+		
+		<script type="text/javascript">
+			
+				$(document).ready(
+						function() {						
+							init(document.getElementById("webglcanvas"));
+							render();
+						}
+				);
+
+		</script>
+	</head>
+	<body>
+
+		<div id="container">
+      <canvas id="webglcanvas"></canvas>
+    </div>
+
+
+	</body>
+</html>

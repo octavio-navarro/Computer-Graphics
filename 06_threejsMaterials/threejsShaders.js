@@ -22,13 +22,13 @@ function animate()
     let angle = Math.PI * 2 * fract;
 
     // Rotate the cube about its Y axis
-    cube.rotation.y += angle;
+    // cube.rotation.y += angle;
 
-    // Rotate the sphere group about its Y axis
-    sphereGroup.rotation.y -= angle / 2;
+    // // Rotate the sphere group about its Y axis
+    // sphereGroup.rotation.y -= angle / 2;
 
-    // Rotate the cone about its X axis (tumble forward)
-    cone.rotation.x += angle;
+    // // Rotate the cone about its X axis (tumble forward)
+    // cone.rotation.x += angle;
 
     uniforms.time.value += fract;
 }
@@ -71,7 +71,9 @@ function createScene(canvas)
     cubeGroup = new THREE.Object3D;
     
     let GLOWMAP = new THREE.TextureLoader().load("../images/water_texture_2.jpg");
+    // let NOISEMAP = new THREE.TextureLoader().load("../images/cloud.png");
     let NOISEMAP = new THREE.TextureLoader().load("../images/noisy-texture.png");
+
     uniforms = 
     {
         time: { type: "f", value: 0.2 },
@@ -86,7 +88,7 @@ function createScene(canvas)
         uniforms: uniforms,
         vertexShader: document.getElementById( 'vertexShader' ).textContent,
         fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
-        transparent:true,
+        transparent: true,
     } );
     
     // Create the cube geometry
