@@ -53,7 +53,7 @@ Game.update = function (delta) {
     this.knot.rotation.x += (Math.PI / 4) * delta;
     this.knotBBox.update();
 
-    var knotBox = new THREE.Box3().setFromObject(this.knotBBox);
+    var knotBox = new THREE.Box3().setFromObject(this.knot);
 
     // change sphere size
     var scale = 0.25 + Math.abs(Math.sin(this.timestamp));

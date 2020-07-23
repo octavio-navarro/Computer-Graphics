@@ -21,16 +21,14 @@ Game.run = function () {
     this.scene = new THREE.Scene();
 
     // create an isometric camera
-    this.camera = new THREE.OrthographicCamera(
-        -5, 5, 5, -5, -1, 100);
+    this.camera = new THREE.OrthographicCamera(-5, 5, 5, -5, -1, 100);
     this.camera.position.z = 5;
     this.camera.position.y = 5;
     this.camera.position.x = 5;
     this.camera.lookAt(this.scene.position); // point at origin
 
     // create ground and axis / grid helpers
-    var ground = new THREE.Mesh(new THREE.PlaneGeometry(10, 10),
-        new THREE.MeshBasicMaterial({color: 0xcccccc}));
+    var ground = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.MeshBasicMaterial({color: 0xcccccc}));
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = -0.01; // to avoid z-fighting with axis and shadows
     this.scene.add(ground);

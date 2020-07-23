@@ -47,14 +47,14 @@ Game.update = function (delta) {
 
     Utils.updateShadow(this.pointShadow, this.point);
 
-    var sphereBox = new THREE.Box3().setFromObject(this.sphereBBox);
+    var sphereBox = new THREE.Box3().setFromObject(this.sphere);
     
     this.sphere.material =
         sphereBox.containsPoint(this.point.position)
         ? this.materials.colliding
         : this.materials.solid;
 
-    var knotBox = new THREE.Box3().setFromObject(this.knotBBox);
+    var knotBox = new THREE.Box3().setFromObject(this.knot);
     this.knot.material = knotBox.containsPoint(this.point.position)
         ? this.materials.colliding
         : this.materials.solid;
