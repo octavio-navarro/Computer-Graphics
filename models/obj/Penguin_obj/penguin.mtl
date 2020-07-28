@@ -8,6 +8,7 @@ Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
+map_Kd peng_texture.jpg
 illum 2
 
 newmtl Penguin_Eye
@@ -17,6 +18,7 @@ Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
+map_Kd peng_eye_texture.jpg
 illum 2
 
 newmtl Penguin_tongue
