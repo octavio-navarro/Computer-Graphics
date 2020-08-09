@@ -76,6 +76,7 @@ Game.initPhysicalWorld = function () {
 
     // register for collide events
     this.cubeBody.addEventListener('collide', function (e) {
+        console.log(e);
         console.log('Collision!');
     }.bind(this));
 
@@ -112,6 +113,9 @@ Game.addPhysicalBody = function (mesh, bodyOptions) {
     // keep a reference to the mesh so we can update its properties later
     body.mesh = mesh;
 
+    // body.name = "Cuerpo fisico";
+
     this.world.addBody(body);
+
     return body;
 };

@@ -3,7 +3,7 @@
 function initControls()
 {
     $('#directional').ColorPicker({
-        color: '#ffffff',
+        color: '#aaaaaa',
         onShow: (colpkr) => {
             $(colpkr).fadeIn(500);
             return false;
@@ -24,12 +24,12 @@ function initControls()
         },
     });
     
-    var directionalHex = "#000000";
+    var directionalHex = "#aaaaaa";
     $('#directional').ColorPickerSetColor(directionalHex);
     $('#directional div').css( "background-color", directionalHex );
     
     $('#spot').ColorPicker({
-        color: '#ffffff',
+        color: '#aaaaaa',
         onShow: (colpkr) => {
             $(colpkr).fadeIn(500);
             return false;
@@ -49,12 +49,12 @@ function initControls()
             $(el).ColorPickerHide();
         },
     });
-    var spotHex = "#000000";
+    var spotHex = "#aaaaaa";
     $('#spot').ColorPickerSetColor(spotHex);
     $('#spot div').css( "background-color", spotHex );
     
     $('#ambient').ColorPicker({
-        color: '#ffffff',
+        color: '#aaaaaa',
         onShow: (colpkr) => {
             $(colpkr).fadeIn(500);
             return false;
@@ -74,7 +74,7 @@ function initControls()
             $(el).ColorPickerHide();
         },
     });
-    var ambientHex = "#ffffff";
+    var ambientHex = "#aaaaaa";
     $('#ambient').ColorPickerSetColor(ambientHex);
     $('#ambient div').css( "background-color", ambientHex );
 }

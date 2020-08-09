@@ -217,3 +217,28 @@ function createTriangle(gl)
     let triangle = {buffer:vertexBuffer, vertSize:3, nVerts:3, primtype:gl.TRIANGLES};
     return triangle;
 }  
+
+function createSphere(gl, radius)
+{
+    var vertexBuffer;
+    vertexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+    var circle_verts = [0,0,0];
+    var startCircle = 45;
+    var endCircle = 325;
+
+    for(var i = startCircle; i <= endCircle; i++)
+    {
+        //x
+        circle_verts.push(Math.cos(degrees_to_radians(i)) * radius);
+        //y
+        circle_verts.push(Math.sin(degrees_to_radians(i)) * radius);
+        //z always 0 for the points to be coplanar
+        circle_verts.push(0.0);
+    }
+    console.log(circle_verts);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(circle_verts), gl.STATIC_DRAW);
+    var sphere = {buffer:vertexBuffer, vertSize:3, nVerts:circle_verts.length/3, primtype:gl.TRIANGLE_FAN};
+    return sphere;
+}        

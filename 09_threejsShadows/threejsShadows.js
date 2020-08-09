@@ -22,7 +22,8 @@ let ambientLight = null;
 let pointLight = null;
 let mapUrl = "../images/checker_large.gif";
 
-let SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
+let SHADOW_MAP_WIDTH = 4096, SHADOW_MAP_HEIGHT = 4096;
+
 // let objModelUrl = {obj:'../models/obj/Penguin_obj/penguin.obj', map:'../models/obj/Penguin_obj/peng_texture.jpg'};
 let objModelUrl = {obj:'../models/obj/cerberus/Cerberus.obj', map:'../models/obj/cerberus/Cerberus_A.jpg', normalMap:'../models/obj/cerberus/Cerberus_N.jpg', specularMap: '../models/obj/cerberus/Cerberus_M.jpg'};
 
@@ -79,6 +80,8 @@ async function loadObj(objModelUrl, objectList)
         let normalMap = objModelUrl.hasOwnProperty('normalMap') ? new THREE.TextureLoader().load(objModelUrl.normalMap) : null;
         let specularMap = objModelUrl.hasOwnProperty('specularMap') ? new THREE.TextureLoader().load(objModelUrl.specularMap) : null;
 
+        console.log(object);
+        
         object.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
                 child.castShadow = true;
@@ -166,7 +169,7 @@ function createScene(canvas)
     root = new THREE.Object3D;
     
     // Add a directional light to show off the object
-    directionalLight = new THREE.DirectionalLight( 0x000000, 1);
+    directionalLight = new THREE.DirectionalLight( 0xaaaaaa, 1);
 
     // Create and add all the lights
     directionalLight.position.set(.5, 1, -3);
@@ -174,7 +177,7 @@ function createScene(canvas)
     directionalLight.castShadow = true;
     root.add(directionalLight);
 
-    spotLight = new THREE.SpotLight (0x000000);
+    spotLight = new THREE.SpotLight (0xaaaaaa);
     spotLight.position.set(2, 8, 15);
     spotLight.target.position.set(-2, 0, -2);
     root.add(spotLight);
@@ -188,7 +191,7 @@ function createScene(canvas)
     spotLight.shadow.mapSize.width = SHADOW_MAP_WIDTH;
     spotLight.shadow.mapSize.height = SHADOW_MAP_HEIGHT;
 
-    ambientLight = new THREE.AmbientLight ( 0xffffff, 0.8);
+    ambientLight = new THREE.AmbientLight ( 0x444444, 0.8);
     root.add(ambientLight);
     
     // Create the objects

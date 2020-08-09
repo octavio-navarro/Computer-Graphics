@@ -96,7 +96,6 @@ function createScene()
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     
     document.getElementById( 'container' ).appendChild( renderer.domElement );
-    // document.getElementById( 'container' ).appendChild( css3dRenderer.domElement );
 
     // Create a new Three.js webglScene
     webglScene = new THREE.Scene();

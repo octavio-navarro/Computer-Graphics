@@ -56,26 +56,6 @@ function createMaterials()
     materials["phong-textured"] = new THREE.MeshPhongMaterial({ map: textureMap, bumpMap: bumpMap, bumpScale: 0.06 });
 }
 
-function setMaterialColor(r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    materials["phong"].color.setRGB(r, g, b);
-    materials["phong-textured"].color.setRGB(r, g, b);
-}
-
-function setMaterialSpecular(r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    materials["phong"].specular.setRGB(r, g, b);
-    materials["phong-textured"].specular.setRGB(r, g, b);
-}
-
 function setMaterial(name)
 {
     materialName = name;
@@ -129,13 +109,13 @@ function createScene(canvas)
     root = new THREE.Object3D;
     
     // Add a directional light to show off the object
-    let light = new THREE.DirectionalLight( 0xffffff, 2);
+    let light = new THREE.DirectionalLight( 0xffffff, 1);
 
     // Position the light out from the scene, pointing at the origin
     light.position.set(.5, 0, 1);
     root.add( light );
 
-    light = new THREE.AmbientLight ( 0 ); // 0x222222 );
+    light = new THREE.AmbientLight ( 0x222222 );
     root.add(light);
     
     // Create a group to hold the spheres

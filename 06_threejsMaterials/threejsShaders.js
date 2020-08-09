@@ -70,15 +70,15 @@ function createScene(canvas)
 
     cubeGroup = new THREE.Object3D;
     
-    let GLOWMAP = new THREE.TextureLoader().load("../images/water_texture_2.jpg");
-    // let NOISEMAP = new THREE.TextureLoader().load("../images/cloud.png");
-    let NOISEMAP = new THREE.TextureLoader().load("../images/noisy-texture.png");
-
+    let COLORMAP = new THREE.TextureLoader().load("../images/water_texture_2.jpg");
+    // let NOISEMAP = new THREE.TextureLoader().load("../images/noisy-texture-3.png");
+    let NOISEMAP = new THREE.TextureLoader().load("../images/cloud.png");
+    
     uniforms = 
     {
         time: { type: "f", value: 0.2 },
         noiseTexture: { type: "t", value: NOISEMAP },
-        glowTexture: { type: "t", value: GLOWMAP }
+        glowTexture: { type: "t", value: COLORMAP }
     };
 
     uniforms.noiseTexture.value.wrapS = uniforms.noiseTexture.value.wrapT = THREE.RepeatWrapping;

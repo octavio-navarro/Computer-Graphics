@@ -8,7 +8,7 @@ camera = null,
 cube = null,
 cube2 = null;
 
-let duration = 5000; // ms
+let duration = 10000; // ms
 let currentTime = Date.now();
 
 function animate() {		
@@ -33,7 +33,6 @@ function run() {
 
     // Spin the cube for next frame
     animate();
-            
 }
 
 function scene_setup()
@@ -86,6 +85,8 @@ function create_cube()
 
     // Finally, add the mesh to our scene
     scene.add( cube );
+
+    console.log(cube);
 
     for ( let i = 0; i < geometry.faces.length; i +=2 ) 
     {

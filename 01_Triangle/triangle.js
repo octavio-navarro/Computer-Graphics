@@ -43,6 +43,7 @@ function initMatrices(canvas)
 {
     // Create a model view matrix with object at 0, 0, -3.333
     modelViewMatrix = mat4.create();
+
     // translate(out, a, v) → {mat4}
     // out	mat4	the receiving matrix
     // a	mat4	the matrix to translate
@@ -57,7 +58,7 @@ function initMatrices(canvas)
     // aspect	number	Aspect ratio. typically viewport width/height
     // near	    number	Near bound of the frustum
     // far	    number	Far bound of the frustum
-    mat4.perspective(projectionMatrix, Math.PI / 4, canvas.width / canvas.height, 1, 3);
+    mat4.perspective(projectionMatrix, Math.PI / 4, canvas.width / canvas.height, 1, 5);
 }
 
 // Create the vertex data for a Triangle to be drawn.
@@ -68,11 +69,13 @@ function createTriangle(gl)
 {
     let vertexBuffer;
     vertexBuffer = gl.createBuffer();
+    
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
     let verts = [
-        0.0,  0.5,  0.0,
-        -.5,  -.5,  0.0,
-        .5, -.5,  0.0,
+        0.0,  0.5, 0.0,
+        -.5, -.5,  0.0,
+        .5, -.5, 0.0,
     ];
 
     // void gl.bufferData(target, ArrayBufferView srcData, usage, srcOffset, length);
@@ -82,7 +85,8 @@ function createTriangle(gl)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
 
     // The resulting object contains the vertexbuffer, the size of the vertex structure (3 floats, x, y, z), the number of vertices to be drawn, the the primitive to draw.
-    let triangle = {buffer:vertexBuffer, vertSize:3, nVerts:verts.length / 3, primtype:gl.TRIANGLE_FAN};
+    let triangle = {buffer:vertexBuffer, vertSize: 3, nVerts: 5, primtype:gl.TRIANGLE_STRIP};
+    
     return triangle;
 }
 
@@ -114,13 +118,15 @@ function createShader(gl, str, type)
 // Varyings: Used for passing data from the vertex shader to the fragment shader.
 let vertexShaderSource =
     
-    "    attribute vec3 vertexPos;\n" +
-    "    uniform mat4 modelViewMatrix;\n" +
-    "    uniform mat4 projectionMatrix;\n" +
+    "    attribute vec3 vertexPos;\n" + // Vertice que viene del buffer
+    "    uniform mat4 modelViewMatrix;\n" + // Objecto
+    "    uniform mat4 projectionMatrix;\n" + // Camara
+
     "    void main(void) {\n" +
     "		// Return the transformed and projected vertex value\n" +
     "        gl_Position = projectionMatrix * modelViewMatrix * \n" +
     "            vec4(vertexPos, 1.0);\n" +
+
     "    }\n";
 
 let fragmentShaderSource = 

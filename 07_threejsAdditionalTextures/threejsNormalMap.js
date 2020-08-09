@@ -60,26 +60,6 @@ function createMaterials()
     materials["phong-normal"] = new THREE.MeshPhongMaterial({ map: map, normalMap: normalMap, specularMap: specularMap });
 }
 
-function setMaterialColor(r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    materials["phong"].color.setRGB(r, g, b);
-    materials["phong-normal"].color.setRGB(r, g, b);
-}
-
-function setMaterialSpecular(r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    materials["phong"].specular.setRGB(r, g, b);
-    materials["phong-normal"].specular.setRGB(r, g, b);
-}
-
 let materialName = "phong-normal";	
 let normalMapOn = true;
 function setMaterial(name)

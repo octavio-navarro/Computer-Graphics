@@ -71,6 +71,35 @@ async function loadObj(objModelUrl, objectList)
     }
 }
 
+async function loadFBX()
+{
+    let loader = promisifyLoader(new THREE.FBXLoader());
+
+    try{
+        let object = await loader.load( '../models/fbx/pyramid/pyramid.fbx');
+
+        let texture = new THREE.TextureLoader().load('../models/fbx/pyramid/pyramid_base_color.png');
+        let normalMap = new THREE.TextureLoader().load('../models/fbx/pyramid/pyramid_normal.png');
+        // let specularMap = new THREE.TextureLoader().load('../models/fbx/pyramid/pyramid_AO.png');
+
+        const scale = 0.003;
+        object.scale.set(scale, scale, scale);
+        object.position.y -= 4;
+        
+        object.traverse( function ( child ) {
+            if ( child.isMesh ) {
+                child.material.map = texture;
+                child.material.normalMap = normalMap;
+            }
+        } );
+        scene.add( object );
+    }
+    catch(err)
+    {
+        console.error( err );
+    }
+}
+
 function load3dModel(objModelUrl, mtlModelUrl)
 {
     mtlLoader = new THREE.MTLLoader();
@@ -91,6 +120,26 @@ function load3dModel(objModelUrl, mtlModelUrl)
             scene.add(object);
         });
     });
+}
+
+async function loadGLTF(objModelUrl)
+{
+    let gltfLoader = new promisifyLoader(new THREE.GLTFLoader());
+
+    try
+    {
+        const result = await gltfLoader.load(objModelUrl);
+
+        let object = result.scene.children[0];
+        // object.scale.set( 0.5, 0.5, 0.5 );
+        object.position.set(0,0,0);
+        console.log(result);
+        scene.add(object);
+    }
+    catch(err)
+    {
+        console.error(err);
+    }
 }
 
 function animate() 
@@ -156,7 +205,9 @@ function createScene(canvas)
     
     // Create the objects
     // loadObj(objModelUrl, objectList);
-    load3dModel(objModelUrl, mtlModelUrl);
+    // load3dModel(objModelUrl, mtlModelUrl);
+    // loadFBX();
+    loadGLTF("../models/gltf/phoenix/scene_fixed.gltf");
 
     // Create a group to hold the objects
     group = new THREE.Object3D;

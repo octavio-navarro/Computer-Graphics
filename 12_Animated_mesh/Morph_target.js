@@ -1,32 +1,19 @@
-let renderer = null, 
-scene = null, 
-camera = null,
-root = null,
-group = null,
-orbitControls = null,
-mixer = null;
-
-let horse_base = null;
+let renderer = null, scene = null, camera = null, root = null, group = null, orbitControls = null;
 
 let morphs = [];
 
 let duration = 20000; // ms
 let currentTime = Date.now();
 
-let directionalLight = null;
-let spotLight = null;
-let ambientLight = null;
+let directionalLight = null, spotLight = null, ambientLight = null;
 let mapUrl = "../images/checker_large.gif";
 
 let SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
-const modelUrls = ["../models/gltf/Horse.glb"];
-// const modelUrls = ["../models/gltf/Horse.glb", "../models/gltf/Parrot.glb", "../models/gltf/Stork.glb", "../models/gltf/Flamingo.glb"];
+const modelUrls = ["../models/gltf/Horse.glb", "../models/gltf/Parrot.glb", "../models/gltf/Stork.glb", "../models/gltf/Flamingo.glb"];
 
 async function loadGLTF()
 {
-    // mixer = new THREE.AnimationMixer( scene );
-
     let modelsPromises = modelUrls.map(url =>{
         return promisifyLoader(new THREE.GLTFLoader()).load(url);
     });
@@ -37,45 +24,28 @@ async function loadGLTF()
 
         results.forEach( (result, index) =>
         {
+            console.log(result);
             let object = result.scene.children[0];
             object.scale.set( 0.05, 0.05, 0.05 );
-            object.position.x = index > 0 ?  - Math.random() * 8: 0;
+            object.position.x = index > 0 ?  - Math.random() * 16: 0;
             object.position.y = index == 0 ?  - 4 :  8;
             object.position.z = -50 - Math.random() * 50;
             object.castShadow = true;
             object. receiveShadow = true;
 
-            console.log(result);
-
+            object.mixer = new THREE.AnimationMixer( scene );
+            object.mixer.clipAction( result.animations[ 0 ], object).setDuration( 1.0 ).play();
+            object.state = "running"; 
             
-            // morphs.push(object);           
+            morphs.push(object);           
 
-            horse_base = object;
-
-            setInterval(() => { 
-                if(morphs.length < 10)
-                {
-                    let clone = horse_base.clone();
-                    clone.position.x = Math.random() * 25;
-                    clone.mixer = new THREE.AnimationMixer( scene );
-                    clone.mixer.clipAction( result.animations[ 0 ], clone).setDuration( 2.0 ).play();
-                    clone.state = "running"; 
-                    
-                    scene.add(clone);
-                    morphs.push(clone);
-                }
-            }, 1000);
+            scene.add(object);
         });        
     }
     catch(err)
     {
         console.error(err);
     }
-}
-
-async function sleep(target, time)
-{
-    setTimeout(()=>{target.state="dead";}, time);
 }
 
 async function animate() {
@@ -89,18 +59,8 @@ async function animate() {
         if(morph.state === "running")
             morph.position.z += 0.03 * deltat;
 
-        if(morph.state==="running" && morph.position.z > 10)
-        {
-            morph.mixer.stopAllAction();
-            morph.state = "dying";
-            await sleep(morph, 500);
-        }           
-
-        if(morph.state === "dead")    
-        {
-            scene.remove(morph);
-            morphs.splice(morphs.indexOf(morph), 1);
-        }
+        if(morph.state==="running" && morph.position.z > 30)
+            morph.position.z = -50 - Math.random() * 50;
 
         if(morph.mixer)
             morph.mixer.update(deltat*0.001);
@@ -165,8 +125,6 @@ function createScene(canvas) {
     
     // Create the objects
     loadGLTF();
-
-
 
     // Create a group to hold the objects
     group = new THREE.Object3D;

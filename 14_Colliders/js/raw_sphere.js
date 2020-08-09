@@ -24,8 +24,7 @@ Game.init = function () {
         this.materials.solid);
     this.ball.position.set(1, 1, 2);
     this.ballShadow = Utils.createShadow(this.ball, this.materials.shadow);
-    this.ballBBox = new THREE.Sphere(
-        this.ball.position, this.ball.geometry.boundingSphere.radius);
+    this.ballBBox = new THREE.Sphere(this.ball.position, this.ball.geometry.boundingSphere.radius);
 
     // add objects to the scene
     this.scene.add(this.ball);
@@ -65,8 +64,7 @@ Game.update = function (delta) {
     Utils.updateShadow(this.sphereShadow, this.sphere);
 
     // update the ball AABB position and shadow
-    this.ballBBox.center.set(
-        this.ball.position.x, this.ball.position.y, this.ball.position.z);
+    this.ballBBox.center.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
     Utils.updateShadow(this.ballShadow, this.ball);
 
     this.sphere.material =

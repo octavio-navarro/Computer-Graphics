@@ -86,14 +86,14 @@ function createScene(canvas)
     
     root.add(directionalLight);
 
-    pointLight = new THREE.PointLight (0xffffff, 0.5);
+    pointLight = new THREE.PointLight (0xffffff, 1, 40, 2);
     pointLight.position.set(5, 10, -10);
     root.add(pointLight);
     pointLightHelper = new THREE.PointLightHelper( pointLight, 1);
 
     scene.add( pointLightHelper );
 
-    spotLight = new THREE.SpotLight (0xffffff, 1, 20, Math.PI/4);
+    spotLight = new THREE.SpotLight (0xffffff, 1, 50, Math.PI/4, 0.5, 2);
     spotLight.position.set(2, 2, 15);
     spotLight.target.position.set(2, 5, 4);
     root.add(spotLight);

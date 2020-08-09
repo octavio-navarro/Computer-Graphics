@@ -10,23 +10,25 @@
 <script type="text/javascript">
           
 	$(document).ready(
-			function() {
-		        let canvas = document.getElementById("webglcanvas");
-			    let gl = initWebGL(canvas);
-		        initViewport(gl, canvas);
-		        initGL(canvas);
-                let cube = createCube(gl, [2 , 0, -2], [1, 1, 1]);
-                let cube2 = createCube(gl, [-2, 0, -2], [-1, 1, 0]);
-		        initShader(gl);
-				run(gl, [cube, cube2]);
-			}
+		function() {
+			let canvas = document.getElementById("webglcanvas");
+			let gl = initWebGL(canvas);
+			initViewport(gl, canvas);
+			initGL(canvas);
+			
+			let cube = createCube(gl, [2 , 0, -2], [0, 0, 1]);
+			let cube2 = createCube(gl, [-2, 0, -2], [-1, 1, 0]);
+			
+			initShader(gl);
+			
+			run(gl, [cube, cube2]);
+		}
 	);
 
 </script>
 
 </head>
 <body>
-
 	<canvas id="webglcanvas" style="border: none;" width="800" height="600">
 	</canvas>
 

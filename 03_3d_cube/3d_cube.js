@@ -4,7 +4,7 @@ let projectionMatrix;
 
 let shaderProgram, shaderVertexPositionAttribute, shaderVertexColorAttribute, shaderProjectionMatrixUniform, shaderModelViewMatrixUniform;
 
-let duration = 5000; // ms
+let duration = 10000; // ms
 
 // Attributes: Input variables used in the vertex shader. Since the vertex shader is called on each vertex, these will be different every time the vertex shader is invoked.
 // Uniforms: Input variables for both the vertex and fragment shaders. These do not change values from vertex to vertex.
@@ -12,15 +12,18 @@ let duration = 5000; // ms
 let vertexShaderSource =    
     "    attribute vec3 vertexPos;\n" +
     "    attribute vec4 vertexColor;\n" +
+
     "    uniform mat4 modelViewMatrix;\n" +
     "    uniform mat4 projectionMatrix;\n" +
+
     "    varying vec4 vColor;\n" +
+
     "    void main(void) {\n" +
     "		// Return the transformed and projected vertex value\n" +
     "        gl_Position = projectionMatrix * modelViewMatrix * \n" +
     "            vec4(vertexPos, 1.0);\n" +
     "        // Output the vertexColor in vColor\n" +
-    "        vColor = vertexColor;\n" +
+    "        vColor = vertexColor * 0.8;\n" +
     "    }\n";
 
 // precision lowp float
@@ -123,6 +126,7 @@ function createCube(gl, translation, rotationAxis)
     // Color data
     let colorBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+
     let faceColors = [
         [1.0, 0.0, 0.0, 1.0], // Front face
         [0.0, 1.0, 0.0, 1.0], // Back face
@@ -164,9 +168,10 @@ function createCube(gl, translation, rotationAxis)
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeIndices), gl.STATIC_DRAW);
     
     let cube = {
-            buffer:vertexBuffer, colorBuffer:colorBuffer, indices:cubeIndexBuffer,
+            buffer: vertexBuffer, colorBuffer:colorBuffer, indices:cubeIndexBuffer,
             vertSize:3, nVerts:24, colorSize:4, nColors: 24, nIndices:36,
-            primtype:gl.TRIANGLES, modelViewMatrix: mat4.create(), currentTime : Date.now()};
+            primtype:gl.TRIANGLES, modelViewMatrix: mat4.create(), currentTime : Date.now()
+        };
 
     mat4.translate(cube.modelViewMatrix, cube.modelViewMatrix, translation);
 
@@ -243,8 +248,8 @@ function draw(gl, objs)
     // clear the background (with black)
     gl.clearColor(0.1, 0.1, 0.1, 1.0);
     gl.enable(gl.DEPTH_TEST);
-    gl.clear(gl.COLOR_BUFFER_BIT  | gl.DEPTH_BUFFER_BIT);
-
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    
     // set the shader to use
     gl.useProgram(shaderProgram);
 

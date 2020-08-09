@@ -94,6 +94,8 @@ function createScene(canvas)
 
     cubeGroup.position.set(1, 0, -0.5);
 
+    console.log("cube position:" , cube);
+
     // Create a group for the sphere
     sphereGroup = new THREE.Object3D;
     cubeGroup.add(sphereGroup);
@@ -111,7 +113,7 @@ function createScene(canvas)
     sphereGroup.add( sphere );
 
     // Create the cone geometry
-    geometry = new THREE.CylinderGeometry(0, .333, .444, 20, 5);
+    geometry = new THREE.CylinderGeometry(0, .333, .444, 20, 20);
 
     // And put the geometry and material together into a mesh
     cone = new THREE.Mesh(geometry, material);
@@ -127,4 +129,14 @@ function createScene(canvas)
 
     // add mouse handling so we can rotate the scene
     addMouseHandler(canvas, cubeGroup);
+
+    let test = new THREE.Vector3();
+
+    cubeGroup.updateMatrixWorld();
+    sphereGroup.updateMatrixWorld();
+    // cone.updateMatrixWorld();
+
+    console.log(cone.position);
+    cone.getWorldPosition(test);
+    console.log(test);
 }
