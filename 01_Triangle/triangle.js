@@ -85,7 +85,7 @@ function createTriangle(gl)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
 
     // The resulting object contains the vertexbuffer, the size of the vertex structure (3 floats, x, y, z), the number of vertices to be drawn, the the primitive to draw.
-    let triangle = {buffer:vertexBuffer, vertSize: 3, nVerts: 5, primtype:gl.TRIANGLE_STRIP};
+    let triangle = {buffer:vertexBuffer, vertSize: 3, nVerts: 3, primtype:gl.TRIANGLE_STRIP};
     
     return triangle;
 }
