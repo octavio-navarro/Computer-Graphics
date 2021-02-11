@@ -25,6 +25,29 @@ let fragmentShaderSource =
 
 let shaderProgram, shaderVertexPositionAttribute, shaderProjectionMatrixUniform, shaderModelViewMatrixUniform;
 
+function main() 
+{
+    let canvas = document.getElementById("webglcanvas");
+    
+    let gl = initWebGL(canvas);
+    initGL(gl, canvas);
+    initViewport(gl, canvas);
+    initShader(gl);
+
+    let square = createSquare(gl);
+    let triangle = createTriangle(gl);
+
+    mat4.identity(modelViewMatrix);
+    
+    mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.0, -3.333]);
+    draw(gl, square);
+    
+    mat4.identity(modelViewMatrix);
+    
+    mat4.translate(modelViewMatrix, modelViewMatrix, [1, 0.0, -3.333]);
+    draw(gl, triangle);
+}
+
 // Initializes the context for use with WebGL
 function initWebGL(canvas) 
 {

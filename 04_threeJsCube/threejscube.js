@@ -11,6 +11,14 @@ cube2 = null;
 let duration = 10000; // ms
 let currentTime = Date.now();
 
+function main() 
+{
+    scene_setup();
+    create_cube();
+    // Run the run loop
+    run();
+}
+
 function animate() {		
     let now = Date.now();
     let deltat = now - currentTime;
@@ -38,7 +46,7 @@ function run() {
 function scene_setup()
 {
     console.log(THREE.REVISION);
-    let canvas = document.getElementById("webglcanvas");
+    const canvas = document.getElementById("webglcanvas");
 
     // Create the Three.js renderer and attach it to our canvas. Different renderes can be used, for example to a 2D canvas.
     renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
@@ -48,6 +56,9 @@ function scene_setup()
 
     // Create a new Three.js scene.
     scene = new THREE.Scene();
+    
+    // Adds a color to the background
+    scene.background = new THREE.Color("rgb(50,50,50)");
 
     // Add  a camera so we can view the scene. Three js uses these values to create a projection matrix.
     camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 40 );
@@ -59,18 +70,15 @@ function create_cube()
 {
     // Create a texture-mapped cube and add it to the scene
 
-    // Adds a color to the background
-    scene.background = new THREE.Color("rgb(0, 0, 0)");
-
     // Create the texture 
-    let textureUrl = "../images/companionCube.png";
-    let texture = new THREE.TextureLoader().load(textureUrl);
+    const textureUrl = "../images/companionCube.png";
+    const texture = new THREE.TextureLoader().load(textureUrl);
     
     // Create a Basic material; pass in the texture. Simple material with no lighting effects.
-    let material = new THREE.MeshBasicMaterial({ map: texture });
+    const material = new THREE.MeshBasicMaterial({ map: texture });
 
     // Create the cube geometry
-    let geometry = new THREE.CubeGeometry(2, 2, 2);
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
 
     // And put the geometry and material together into a mesh
     cube = new THREE.Mesh(geometry, material);
@@ -86,19 +94,25 @@ function create_cube()
     // Finally, add the mesh to our scene
     scene.add( cube );
 
-    console.log(cube);
+    const colors = [];
 
-    for ( let i = 0; i < geometry.faces.length; i +=2 ) 
+    for(let i = 0; i < 6; i++)
     {
-        let color = Math.random() * 0xffffff;
-        geometry.faces[ i ].color.setHex( color );
-        // color = Math.random() * 0xffffff;
-        geometry.faces[ i + 1].color.setHex( color );
+        const red = Math.random();
+        const green = Math.random();
+        const blue = Math.random();
+
+        for (let j = 0; j< 4; j++)
+        {
+            colors.push(red, green, blue);
+        }
     }
 
-    // .vertexColors : Integer Defines whether vertex coloring is used. 
-    // FaceColors colors faces according to each Face3 Color value.
-    let material2 = new THREE.MeshBasicMaterial( { color: 0xffffff, vertexColors: THREE.FaceColors } );
+    const colorsAttr = new THREE.Float32BufferAttribute(colors, 3);
+
+    geometry.setAttribute('color', colorsAttr);
+
+    const material2 = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors});
 
     cube2 = new THREE.Mesh(geometry, material2);
 

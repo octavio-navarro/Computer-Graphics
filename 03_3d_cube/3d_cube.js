@@ -38,6 +38,21 @@ let fragmentShaderSource =
     "    gl_FragColor = vColor;\n" +
     "}\n";
 
+function main() 
+{
+    let canvas = document.getElementById("webglcanvas");
+    let gl = initWebGL(canvas);
+    initViewport(gl, canvas);
+    initGL(canvas);
+    
+    let cube = createCube(gl, [2 , 0, -2], [0, 0, 1]);
+    let cube2 = createCube(gl, [-2, 0, -2], [-1, 1, 0]);
+    
+    initShader(gl);
+    
+    run(gl, [cube, cube2]);
+}
+
 function initWebGL(canvas)
 {
     let gl = null;
