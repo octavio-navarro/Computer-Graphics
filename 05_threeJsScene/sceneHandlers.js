@@ -5,13 +5,13 @@ let mouseDown = false, pageX = 0;
 function rotateScene(deltax, group)
 {
     group.rotation.y += deltax / 100;
-    $("#rotation").html("rotation: 0," + group.rotation.y.toFixed(1) + ",0");
+    document.getElementById('rotation').innerHTML = "rotation: 0," + group.rotation.y.toFixed(1) + ",0";
 }
 
 function scaleScene(scale, group)
 {
     group.scale.set(scale, scale, scale);
-    $("#scale").html("scale: " + scale);
+    document.getElementById('scale').innerHTML = "scale: " + scale;
 }
 
 function onMouseMove(evt, group)
@@ -48,5 +48,5 @@ function addMouseHandler(canvas, group)
     canvas.addEventListener( 'mousedown', e => onMouseDown(e), false );
     canvas.addEventListener( 'mouseup',  e => onMouseUp(e), false );
 
-    $("#slider").on("slide", (e, u) => scaleScene(u.value, group));
+    document.getElementById('slider').oninput = (e) => scaleScene(e.target.value, group);
 }
