@@ -1,5 +1,20 @@
 let mat4 = glMatrix.mat4;
 
+function main() 
+{
+    let canvas = document.getElementById("webglcanvas");
+    // Code to make the canvas full screen
+    // canvas.width = window.innerWidth;
+    // canvas.height = window.innerHeight;
+    let gl = initWebGL(canvas);
+    
+    initViewport(gl, canvas);
+    initMatrices(canvas);
+    let triangle = createTriangle(gl);
+    initShader(gl);
+    draw(gl, triangle);
+}
+
 // Initializes the context for use with WebGL
 function initWebGL(canvas) 
 {

@@ -9,6 +9,17 @@ sphereGroup = null;
 let duration = 5000; // ms
 let currentTime = Date.now();
 
+function main() {
+                    
+    const canvas = document.getElementById("webglcanvas");
+
+    // create the scene
+    createScene(canvas);
+    
+    // Run the run loop
+    run();
+}
+
 function animate() 
 {
     let now = Date.now();
@@ -51,7 +62,6 @@ function createScene(canvas)
 
     // Set the background color 
     scene.background = new THREE.Color( 0.2, 0.2, 0.2 );
-    // scene.background = new THREE.Color( "rgb(100, 100, 100)" );
 
     // Add  a camera so we can view the scene
     camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
@@ -63,7 +73,6 @@ function createScene(canvas)
     
     // Add a directional light to show off the objects
     let light = new THREE.DirectionalLight( 0xffffff, 1.0);
-    // let light = new THREE.DirectionalLight( "rgb(255, 255, 100)", 1.5);
 
     // Position the light out from the scene, pointing at the origin
     light.position.set(-.5, .2, 1);
@@ -80,7 +89,7 @@ function createScene(canvas)
     let material = new THREE.MeshPhongMaterial({ map: texture });
 
     // Create the cube geometry
-    let geometry = new THREE.CubeGeometry(2, 2, 2);
+    let geometry = new THREE.BoxGeometry(2, 2, 2);
 
     // And put the geometry and material together into a mesh
     cube = new THREE.Mesh(geometry, material);
@@ -130,13 +139,14 @@ function createScene(canvas)
     // add mouse handling so we can rotate the scene
     addMouseHandler(canvas, cubeGroup);
 
-    let test = new THREE.Vector3();
+    // This code gets the world position of the cone.
+    let coneWorldPosition = new THREE.Vector3();
 
     cubeGroup.updateMatrixWorld();
     sphereGroup.updateMatrixWorld();
-    // cone.updateMatrixWorld();
+    cone.updateMatrixWorld();
 
     console.log(cone.position);
-    cone.getWorldPosition(test);
-    console.log(test);
+    cone.getWorldPosition(coneWorldPosition);
+    console.log(coneWorldPosition);
 }
