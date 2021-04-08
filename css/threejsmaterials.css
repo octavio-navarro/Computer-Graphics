@@ -84,45 +84,18 @@ body {
 }
 
 #texturePicker {
-	font-size:16px;
 	position:absolute;
-	top:300px;
-    margin-left:10px;
+	top:420px;
 }
 
-#textureUrl {
-	font-size:10px;
-}
-
-#texturePicker .swatch {
-  width: 80px;
-  height: 60px;
-  margin-left: 140px;
-  margin-top:-20px;
-  background-size:100% 100%;
-}
-
-.colorSelector {
+.diffuseSelector {
+	display: flex;
 	position: absolute;
-	font-size:16px;
-    margin-left:10px;
+	top: 200px;
 }
 
-.colorSelector div {
+.specularSelector {
+	display: flex;
 	position: absolute;
-	top: 4px;
-	left: 140px;
-	width: 28px;
-	height: 28px;
-	background: url(../libs/colorpicker/images/select2.png) center;
-}
-
-#diffuseColor {
-	position: absolute;
-	top:180px;
-}
-
-#specularColor {
-	position: absolute;
-	top:220px;
+	top: 300px;
 }

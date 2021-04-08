@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Three.js Shader Scene Graph</title>
+
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/threejsshaders.css" />
+
+<script src="../libs/three.js/three.js"></script>
+<script src="../libs/three.js/controls/OrbitControls.js"></script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+
+	uniform float time;
+
+	//A sampler is a set of GLSL variable types. Variables of one of the sampler types must be uniforms or as function parameters. Each sampler in a program represents a single texture of a particular texture type.
+
+	uniform sampler2D noiseTexture;
+	uniform sampler2D glowTexture;
+
+	varying vec2 texCoord;
+
+	void main( void ) 
+	{
+		/*Texture2D - Retrieves texels (i.e. the color) of a texture for the given coordinates.
+		vec4 texture2D(sampler2D sampler, vec2 coord)
+		sampler - specifies the sampler to which the texture from which texels will be retrieved is bound.
+		coord - specifies the texture coordinates at which texture will be sampled.
+		*/
+		vec4 noise = texture2D( noiseTexture, texCoord );
+		
+		vec2 translation = texCoord + vec2( -1, 1 ) * time * 0.2; 
+		
+		translation.x += noise.b;
+		translation.y -= noise.g;
+		
+		vec4 color = texture2D( glowTexture, translation );
+
+		vec4 newColor = vec4(color.r, color.g, color.b, 0.6);
+		
+		gl_FragColor = newColor;
+	}
+
+</script>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+
+	varying vec2 texCoord;
+
+	void main()
+	{
+		texCoord = uv;
+		vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+		gl_Position = projectionMatrix * mvPosition;
+	}
+
+</script>
+
+<script src="threejsShaders.js" type="text/javascript"></script>
+<script src="sceneHandlerShaders.js" type="text/javascript"></script>
+
+</head>
+<body onload="main()">
+
+	<div id="container">
+	    <canvas id="webglcanvas" width=800 height=600></canvas>
+		<div id="title">
+			Three.js Scene Graph/Transform Hierarchy
+		</div>
+		<div id="prompt">
+			Drag the mouse to rotate the scene<br>Drag the slider to scale.
+		</div>
+	    <div id="status">
+		    <div id="rotation">rotation: 0,0,0</div>
+		    <div id="scale">scale: 1</div>
+	    </div>
+	</div>
+
+	<input style="position:absolute; top:610px; height:10px; width:	800px;" type="range" min="0.1" max="2" value="1" step="0.01" id="slider">
+
+</body>
+
+</html>
