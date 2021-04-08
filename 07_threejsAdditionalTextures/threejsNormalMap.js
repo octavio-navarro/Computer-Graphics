@@ -25,6 +25,17 @@ let duration = 10000; // ms
 let currentTime = Date.now();
 let animating = true;
 
+function main()
+{
+    let canvas = document.getElementById("webglcanvas");
+
+    // create the scene
+    createScene(canvas);
+    
+    // Run the run loop
+    run();
+}
+
 function animate() {
 
     let now = Date.now();

@@ -4,13 +4,13 @@ pageX = 0;
 function rotateScene(deltax, group)
 {
     group.rotation.y += deltax / 100;
-    $("#rotation").html("rotation: 0," + cubeGroup.rotation.y.toFixed(2) + ",0");
+    document.querySelector("#rotation").innerHTML = "rotation: 0," + group.rotation.y.toFixed(2) + ",0";
 }
 
 function scaleScene(scale, group)
 {
     group.scale.set(scale, scale, scale);
-    $("#scale").html("scale: " + scale);
+    document.querySelector("#scale").innerHTML = "scale: " + scale;
 }
     
 function onMouseMove(evt, group)
@@ -46,10 +46,5 @@ function addMouseHandler(canvas, group)
     canvas.addEventListener( 'mousedown', e => onMouseDown(e), false );
     canvas.addEventListener( 'mouseup', e => onMouseUp(e), false );
 
-    $("#slider").on("slide", (e, u) => scaleScene(u.value, group));
-}
-
-function initControls()
-{
-    $("#slider").slider({min: 0.5, max: 2, value: 1, step: 0.01, animate: false});
+    document.querySelector("#slider").oninput = (e) => scaleScene(e.target.value, group);
 }

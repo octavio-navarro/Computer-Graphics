@@ -3,13 +3,13 @@ let mouseDown = false, pageX = 0;
 function rotateScene(deltax, group)
 {
     group.rotation.y += deltax / 100;
-    $("#rotation").html("rotation: 0," + group.rotation.y.toFixed(2) + ",0");
+    document.querySelector("#rotation").innerHTML = "rotation: 0," + group.rotation.y.toFixed(2) + ",0";
 }
 
 function scaleScene(scale, group)
 {
     group.scale.set(scale, scale, scale);
-    $("#scale").html("scale: " + scale);
+    document.querySelector("#scale").innerHTML = "scale: " + scale;
 }
 
 function onMouseMove(evt, group)
@@ -45,80 +45,36 @@ function addMouseHandler(canvas, group)
     canvas.addEventListener( 'mousedown', e => onMouseDown(e), false );
     canvas.addEventListener( 'mouseup', e => onMouseUp(e), false );
 
-    $("#slider").on("slide", (e, u) => scaleScene(u.value, group));
+    document.querySelector("#slider").oninput = (e) => scaleScene(e.target.value, group);
+}
+
+function changeMaterial(element)
+{
+    let id = document.querySelector("input[name=materialRBGroup]:checked");
+    
+    if (textureOn)
+        setMaterial(id.value + "-textured");
+    else
+        setMaterial(id.value); 
 }
 
 function initControls()
 {
-    $("#slider").slider({min: 0, max: 2, value: 1, step: 0.01, animate: false});
+    document.querySelector("#wireframeCheckbox").addEventListener('change', () => toggleWireframe() );
 
-    $("input[name=materialRBGroup]").click(() => {
-                    let id = $("input[name=materialRBGroup]:checked").attr('value');
-                    if (textureOn)
-                        setMaterial(id + "-textured");
-                    else
-                        setMaterial(id);                        
-                }
-            );
-
-    $("#wireframeCheckbox").click( () => toggleWireframe() );
-
-    $('#diffuseColor').ColorPicker({
-        color: '#ffffff',
-        onShow: colpkr => {
-            $(colpkr).fadeIn(500);
-            return false;
-        },
-        onHide: colpkr => {
-            $(colpkr).fadeOut(500);
-            return false;
-        },
-        onChange: (hsb, hex, rgb) => {
-            $('#diffuseColor div').css('backgroundColor', '#' + hex);
-            setMaterialDiffuse(rgb.r, rgb.g, rgb.b);
-        },
-        onSubmit: (hsb, hex, rgb, el) => {
-            $(el).val(hex);
-            $('#diffuseColor div').css( "background-color", "#" + hex );
-            setMaterialDiffuse(rgb.r, rgb.g, rgb.b);
-            $(el).ColorPickerHide();
-        },
+    document.querySelector('#diffuseColor').addEventListener('change', (event)=>{
+        setMaterialDiffuse(event.target.value);
     });
-
-    let diffuseHex = "#ffffff";
-    $('#diffuseColor').ColorPickerSetColor(diffuseHex);
-    $('#diffuseColor div').css( "background-color", diffuseHex );
-    
-    $('#specularColor').ColorPicker({
-        color: '#ffffff',
-        onShow: colpkr => {
-            $(colpkr).fadeIn(500);
-            return false;
-        },
-        onHide: colpkr => {
-            $(colpkr).fadeOut(500);
-            return false;
-        },
-        // Callback function triggered when the color is changed. This is the function that allows you to get the color picked by the user whenever it changes, whithout the user pressing the OK button
-        onChange: (hsb, hex, rgb) => {
-            $('#specularColor div').css('backgroundColor', '#' + hex);
-            setMaterialSpecular(rgb.r, rgb.g, rgb.b);
-        },
-        // Callback function triggered when the color is chosen by the user, using the OK button
-        onSubmit: (hsb, hex, rgb, el) => {
-            $(el).val(hex);
-            $('#specularColor div').css( "background-color", "#" + hex );
-            setMaterialSpecular(rgb.r, rgb.g, rgb.b);
-            $(el).ColorPickerHide();
-        },
+    document.querySelector('#diffuseColor').addEventListener('input', (event)=>{
+        setMaterialDiffuse(event.target.value);
     });
-
-    let specularHex = "#111111";
-    $('#specularColor').ColorPickerSetColor(specularHex);
-    $('#specularColor div').css( "background-color", specularHex );
-                    
-    $("#textureUrl").html(mapUrl);
-    $("#texture").css( "background-image", "url(" + mapUrl + ")");
+        
+    document.querySelector('#specularColor').addEventListener('change', (event)=>{
+        setMaterialSpecular(event.target.value);
+    });
+    document.querySelector('#specularColor').addEventListener('input', (event)=>{
+        setMaterialSpecular(event.target.value);
+    });
     
-    $("#textureCheckbox").click(() => toggleTexture() );
+    document.querySelector("#textureCheckbox").addEventListener('change', () => toggleTexture() );
 }

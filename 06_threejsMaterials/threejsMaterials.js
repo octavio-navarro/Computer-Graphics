@@ -16,6 +16,20 @@ let materials = {};
 let mapUrl = "../images/moon_1024.jpg";
 let textureMap = null;
 
+function main()
+{
+    let canvas = document.getElementById("webglcanvas");
+
+    // create the scene
+    createScene(canvas);
+
+    // initialize the controls
+    initControls();
+    
+    // Run the run loop
+    run();
+}
+
 function animate() 
 {
     let now = Date.now();
@@ -59,29 +73,21 @@ function createMaterials()
 }
 
 // Changes the diffuse color of the material. The material’s diffuse color specifies how much the object reflects lighting sources that cast rays in a direction — directional, point, and spotlights.
-function setMaterialDiffuse(r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    materials["basic"].color.setRGB(r, g, b);
-    materials["phong"].color.setRGB(r, g, b);
-    materials["lambert"].color.setRGB(r, g, b);
-    materials["basic-textured"].color.setRGB(r, g, b);
-    materials["phong-textured"].color.setRGB(r, g, b);
-    materials["lambert-textured"].color.setRGB(r, g, b);
+function setMaterialDiffuse(color)
+{    
+    materials["basic"].color.set(color)
+    materials["phong"].color.set(color)
+    materials["lambert"].color.set(color)
+    materials["basic-textured"].color.set(color)
+    materials["phong-textured"].color.set(color)
+    materials["lambert-textured"].color.set(color)
 }
 
 // The specular color combines with scene lights to create reflected highlights from any of the object's vertices facing toward light sources.
-function setMaterialSpecular(r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    materials["phong"].specular.setRGB(r, g, b);
-    materials["phong-textured"].specular.setRGB(r, g, b);
+function setMaterialSpecular(color)
+{    
+    materials["phong"].specular.set(color);
+    materials["phong-textured"].specular.set(color);
 }
 
 function setMaterial(name)

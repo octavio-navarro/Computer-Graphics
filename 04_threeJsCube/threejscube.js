@@ -29,8 +29,8 @@ function animate() {
     cube.rotation.y += angle;
     cube.rotation.x += angle;
 
-    cube2.rotation.y += angle;
-    cube2.rotation.x += angle;
+    cube2.rotation.y -= angle;
+    cube2.rotation.x -= angle;
 }
 
 function run() {
@@ -45,7 +45,6 @@ function run() {
 
 function scene_setup()
 {
-    console.log(THREE.REVISION);
     const canvas = document.getElementById("webglcanvas");
 
     // Create the Three.js renderer and attach it to our canvas. Different renderes can be used, for example to a 2D canvas.

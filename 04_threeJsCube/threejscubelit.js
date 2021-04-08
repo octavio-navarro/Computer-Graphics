@@ -57,13 +57,13 @@ function scene_setup()
     scene.add(camera);
 
     // Add a directional light to show off the object
-    const light = new THREE.DirectionalLight( new THREE.Color("rgb(200, 200, 200)"), 1);
+    const light = new THREE.DirectionalLight(new THREE.Color("rgb(255,255,255)"), 1);
 
     // Position the light out from the scene, pointing at the origin
     light.position.set(-2, -2, 2);
     light.target.position.set(0,0,0);
 
-    const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
+    const light2 = new THREE.DirectionalLight(0xff0000, 1);
     light2.position.set(0, 5, 2);
     light2.target.position.set(0,0,0);
 

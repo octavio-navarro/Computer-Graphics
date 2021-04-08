@@ -3,13 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Three.js Shader Scene Graph</title>
 
-<link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
 <link rel="stylesheet" href="../css/main.css" />
 <link rel="stylesheet" href="../css/threejsshaders.css" />
 
-<script src="../libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script src="../libs/jquery-ui/jquery-ui.js"></script>
-<script src="../libs/three.js/three.js"></script>
+<script src="../libs/three.js/r125/three.js"></script>
 <script src="../libs/three.js/controls/OrbitControls.js"></script>
 
 <script id="fragmentShader" type="x-shader/x-fragment">
@@ -62,25 +59,8 @@
 <script src="threejsShaders.js" type="text/javascript"></script>
 <script src="sceneHandlerShaders.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-$(document).ready(
-        function() {
-
-            let canvas = document.getElementById("webglcanvas");
-
-            // create the scene
-            createScene(canvas);
-
-			initControls();
-            
-            // Run the run loop
-            run();
-        }
-);
-</script>
-
 </head>
-<body>
+<body onload="main()">
 
 	<div id="container">
 	    <canvas id="webglcanvas" width=800 height=600></canvas>
@@ -96,7 +76,8 @@ $(document).ready(
 	    </div>
 	</div>
 
-	<div style="position:absolute; top:610px; height:10px; width:	800px;" id="slider"></div>
+	<input style="position:absolute; top:610px; height:10px; width:	800px;" type="range" min="0.1" max="2" value="1" step="0.01" id="slider">
+
 </body>
 
 </html>

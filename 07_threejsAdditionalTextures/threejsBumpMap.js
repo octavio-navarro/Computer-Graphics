@@ -21,6 +21,17 @@ let bumpMap = null;
 let materialName = "phong-textured";	
 let textureOn = true;
 
+function main()
+{
+    var canvas = document.getElementById("webglcanvas");
+
+    // create the scene
+    createScene(canvas);
+
+    // Run the run loop
+    run();
+}
+
 function animate() 
 {
 
@@ -147,11 +158,14 @@ function createScene(canvas)
     // Now add the group to our scene
     scene.add( root );
 
+    modifyBump(0.01);
+
     addMouseHandler(canvas, root);
 }
 
 function modifyBump(scale)
 {
-    materials["phong"].bumpScale =  scale;
+    console.log(scale);
+    materials["phong"].bumpScale = scale;
     materials["phong-textured"].bumpScale = scale;
 }

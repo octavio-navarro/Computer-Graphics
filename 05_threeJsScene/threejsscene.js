@@ -33,9 +33,9 @@ function animate()
 
     // Rotate the sphere group about its Y axis
     sphereGroup.rotation.y -= angle / 2;
-    sphere.rotation.x += angle;
+    sphere.rotation.x += angle * 2;
 
-    // Rotate the cone about its X axis (tumble forward)
+    // // Rotate the cone about its X axis (tumble forward)
     cone.rotation.z += angle;
 }
 
@@ -50,7 +50,7 @@ function run() {
 }
 
 function createScene(canvas)
-{    
+{   
     // Create the Three.js renderer and attach it to our canvas
     renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
 

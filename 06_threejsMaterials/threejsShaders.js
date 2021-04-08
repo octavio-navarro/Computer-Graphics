@@ -13,6 +13,16 @@ uniforms = null;
 let duration = 5000; // ms
 let currentTime = Date.now();
 
+function main()
+{
+    let canvas = document.getElementById("webglcanvas");
+
+    // create the scene
+    createScene(canvas);
+    console.log(THREE.REVISION);
+    // Run the run loop
+    run();
+}
 function animate()
 {
     let now = Date.now();
@@ -92,7 +102,7 @@ function createScene(canvas)
     } );
     
     // Create the cube geometry
-    let geometry = new THREE.CubeGeometry(2, 2, 2);
+    let geometry = new THREE.BoxGeometry(2, 2, 2);
 
     // And put the geometry and material together into a mesh
     cube = new THREE.Mesh(geometry, material);
