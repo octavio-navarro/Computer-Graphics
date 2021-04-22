@@ -3,6 +3,11 @@
 // Both the THREE.DirectionalLight type and the THREE.SpotLight type support shadows. 
 // 3. Indicate which geometry objects cast and receive shadows.
 
+import * as THREE from '../libs/three.js/r125/three.module.js'
+import { OrbitControls } from '../libs/three.js/r125/controls/OrbitControls.js';
+import { OBJLoader } from '../libs/three.js/r125/loaders/OBJLoader.js';
+import { MTLLoader } from '../libs/three.js/r125/loaders/MTLLoader.js';
+
 let renderer = null, 
 scene = null, 
 camera = null,
@@ -11,49 +16,51 @@ group = null,
 objectList = [],
 orbitControls = null;
 
-let objLoader = null, jsonLoader = null;
-
 let duration = 20000; // ms
 let currentTime = Date.now();
 
 let directionalLight = null;
 let spotLight = null;
 let ambientLight = null;
-let pointLight = null;
+
 let mapUrl = "../images/checker_large.gif";
 
 let SHADOW_MAP_WIDTH = 4096, SHADOW_MAP_HEIGHT = 4096;
 
-// let objModelUrl = {obj:'../models/obj/Penguin_obj/penguin.obj', map:'../models/obj/Penguin_obj/peng_texture.jpg'};
+let objMtlModelUrl = {obj:'../models/obj/Penguin_obj/penguin.obj', mtl:'../models/obj/Penguin_obj/penguin.mtl'};
+
 let objModelUrl = {obj:'../models/obj/cerberus/Cerberus.obj', map:'../models/obj/cerberus/Cerberus_A.jpg', normalMap:'../models/obj/cerberus/Cerberus_N.jpg', specularMap: '../models/obj/cerberus/Cerberus_M.jpg'};
 
 let jsonModelUrl = { url:'../models/json/teapot-claraio.json' };
 
-function promisifyLoader ( loader, onProgress ) 
+function main()
 {
-    function promiseLoader ( url ) {
-  
-      return new Promise( ( resolve, reject ) => {
-  
-        loader.load( url, resolve, onProgress, reject );
-  
-      } );
-    }
-  
-    return {
-      originalLoader: loader,
-      load: promiseLoader,
-    };
+    const canvas = document.getElementById("webglcanvas");
+
+    createScene(canvas);
+    
+    initControls();
+
+    update();
 }
 
-const onError = ( ( err ) => { console.error( err ); } );
+function onError ( err ){ console.error( err ); };
+
+function onProgress( xhr ) {
+
+    if ( xhr.lengthComputable ) {
+
+        const percentComplete = xhr.loaded / xhr.total * 100;
+        console.log( xhr.target.responseURL, Math.round( percentComplete, 2 ) + '% downloaded' );
+    }
+}
 
 async function loadJson(url, objectList)
 {
-    const jsonPromiseLoader = promisifyLoader(new THREE.ObjectLoader());
+    // const jsonPromiseLoader = promisifyLoader(new THREE.ObjectLoader());
     
     try {
-        const object = await jsonPromiseLoader.load(url);
+        const object = await new THREE.ObjectLoader().loadAsync(url, onProgress, onError);
 
         object.castShadow = true;
         object.receiveShadow = true;
@@ -62,7 +69,6 @@ async function loadJson(url, objectList)
         object.name = "jsonObject";
         objectList.push(object);
         scene.add(object);
-
     }
     catch (err) {
         return onError(err);
@@ -71,19 +77,16 @@ async function loadJson(url, objectList)
 
 async function loadObj(objModelUrl, objectList)
 {
-    const objPromiseLoader = promisifyLoader(new THREE.OBJLoader());
-
     try {
-        const object = await objPromiseLoader.load(objModelUrl.obj);
-        
-        let texture = objModelUrl.hasOwnProperty('map') ? new THREE.TextureLoader().load(objModelUrl.map) : null;
+        const object = await new OBJLoader().loadAsync(objModelUrl.obj, onProgress, onError);
+        let texture = objModelUrl.hasOwnProperty('normalMap') ? new THREE.TextureLoader().load(objModelUrl.map) : null;
         let normalMap = objModelUrl.hasOwnProperty('normalMap') ? new THREE.TextureLoader().load(objModelUrl.normalMap) : null;
         let specularMap = objModelUrl.hasOwnProperty('specularMap') ? new THREE.TextureLoader().load(objModelUrl.specularMap) : null;
 
         console.log(object);
         
         object.traverse(function (child) {
-            if (child instanceof THREE.Mesh) {
+            if (child.isMesh) {
                 child.castShadow = true;
                 child.receiveShadow = true;
                 child.material.map = texture;
@@ -102,8 +105,63 @@ async function loadObj(objModelUrl, objectList)
 
     }
     catch (err) {
-        return onError(err);
+        onError(err);
     }
+}
+
+async function loadObjMtl(objModelUrl, objectList)
+{
+    try
+    {
+        const mtlLoader = new MTLLoader();
+
+        const materials = await mtlLoader.loadAsync(objModelUrl.mtl, onProgress, onError);
+
+        materials.preload();
+        
+        const objLoader = new OBJLoader();
+
+        objLoader.setMaterials(materials);
+        const object = await objLoader.loadAsync(objModelUrl.obj, onProgress, onError);
+    
+        object.traverse(function (child) {
+            if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+        
+        object.position.y += 1;
+        object.scale.set(0.15, 0.15, 0.15);
+
+        objectList.push(object);
+        scene.add(object);
+    }
+    catch (err){
+        onError(err);
+    }
+}
+
+function initControls()
+{
+    document.querySelector('#directionalLight').addEventListener('change', (event)=>{
+        directionalLight.color.set(event.target.value);
+    });
+    document.querySelector('#directionalLight').addEventListener('input', (event)=>{
+        directionalLight.color.set(event.target.value);
+    });
+    document.querySelector('#spotLight').addEventListener('change', (event)=>{
+        spotLight.color.set(event.target.value);
+    });
+    document.querySelector('#spotLight').addEventListener('input', (event)=>{
+        spotLight.color.set(event.target.value);
+    });
+    document.querySelector('#ambientLight').addEventListener('change', (event)=>{
+        ambientLight.color.set(event.target.value);
+    });
+    document.querySelector('#ambientLight').addEventListener('input', (event)=>{
+        ambientLight.color.set(event.target.value);
+    });
 }
 
 function animate() 
@@ -114,14 +172,14 @@ function animate()
     let fract = deltat / duration;
     let angle = Math.PI * 2 * fract;
 
-    for(object of objectList)
+    for(const object of objectList)
         if(object)
             object.rotation.y += angle / 2;
 }
 
-function run() 
+function update() 
 {
-    requestAnimationFrame(function() { run(); });
+    requestAnimationFrame(function() { update(); });
     
     // Render the scene
     renderer.render( scene, camera );
@@ -131,15 +189,6 @@ function run()
 
     // Update the camera controller
     orbitControls.update();
-}
-
-function setLightColor(light, r, g, b)
-{
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    
-    light.color.setRGB(r, g, b);
 }
 
 function createScene(canvas) 
@@ -152,6 +201,7 @@ function createScene(canvas)
 
     // Turn on shadows
     renderer.shadowMap.enabled = true;
+    
     // Options are THREE.BasicShadowMap, THREE.PCFShadowMap, PCFSoftShadowMap
     renderer.shadowMap.type = THREE.BasicShadowMap;
     
@@ -163,7 +213,7 @@ function createScene(canvas)
     camera.position.set(-2, 6, 12);
     scene.add(camera);
 
-    orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+    orbitControls = new OrbitControls(camera, renderer.domElement);
     
     // Create a group to hold all the objects
     root = new THREE.Object3D;
@@ -199,6 +249,8 @@ function createScene(canvas)
 
     loadJson(jsonModelUrl.url, objectList);
 
+    loadObjMtl(objMtlModelUrl, objectList);
+
     // Create a group to hold the objects
     group = new THREE.Object3D;
     root.add(group);
@@ -208,12 +260,9 @@ function createScene(canvas)
     map.wrapS = map.wrapT = THREE.RepeatWrapping;
     map.repeat.set(8, 8);
 
-    let color = 0xffffff;
-
-    // let asteroid = new THREE.Object3D();
     // Put in a ground plane to show off the lighting
     let geometry = new THREE.PlaneGeometry(200, 200, 50, 50);
-    let mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, map:map, side:THREE.DoubleSide}));
+    let mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({map:map, side:THREE.DoubleSide}));
 
     mesh.rotation.x = -Math.PI / 2;
     mesh.position.y = -4.02;
@@ -221,17 +270,9 @@ function createScene(canvas)
     mesh.receiveShadow = true;
     group.add( mesh );
     
-    // Create the sphere
-    geometry = new THREE.SphereGeometry(0.8, 20, 20);
-    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color}));
-    mesh.position.y = 2;
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    group.add( mesh );
-
     // Create the cylinder 
     geometry = new THREE.CylinderGeometry(1, 2, 2, 50, 10);
-    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color}));
+    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial());
     mesh.position.y = -3;
     mesh.castShadow = false;
     mesh.receiveShadow = true;    
@@ -239,3 +280,5 @@ function createScene(canvas)
     
     scene.add( root );
 }
+
+window.onload = () => main();
