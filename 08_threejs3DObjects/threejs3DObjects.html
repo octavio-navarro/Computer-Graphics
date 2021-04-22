@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Three.js 3D Objects</title>
+
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/threejs3DObjects.css" />
+
+<script type="module" src="../libs/three.js/r125/controls/OrbitControls.js"></script>
+
+<script type="module" src="threejs3DObjects.js">
+</script>
+
+</head>
+
+<body>
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+	<div id="title">
+		Three.js Shadows
+	</div>
+	<div id="prompt">
+		Drag the mouse to rotate the camera<br>Use the scroll wheel to zoom.
+	</div>
+</div>
+
+<div id="properties">
+	
+<div id="directional" class="colorSelector">
+	Directional
+	<input id='directionalLight' type="color">
+</div>
+<div id="spot" class="colorSelector">
+	Spot
+	<input id='spotLight' type="color">
+</div>
+<div id="ambient" class="colorSelector">
+	Ambient
+	<input id='ambientLight' type="color">
+</div>
+
+
+</div>
+
+
+</html>
