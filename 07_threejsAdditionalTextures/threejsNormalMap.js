@@ -27,7 +27,6 @@ let animating = true;
 
 function main()
 {
-    console.log(THREE.REVISION);
     let canvas = document.getElementById("webglcanvas");
 
     // create the scene
