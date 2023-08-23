@@ -1,0 +1,21 @@
+body {
+	color:MidnightBlue;
+	width: 100vw;
+	height: 100vh;
+	margin: 0px;
+	border: 0;
+	overflow: hidden; 
+}
+
+#webglcanvas {
+	border:none;
+	background-color:DeepSkyBlue;
+}
+
+#title {
+	position:absolute;
+	left:20px;
+	top:20px;
+	color:Ivory;
+}
+

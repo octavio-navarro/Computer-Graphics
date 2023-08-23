@@ -1,0 +1,51 @@
+body{
+	color:white;
+}
+#title {
+	position:absolute;
+	left:20px;
+	top:20px;
+}
+
+#prompt {
+	position:absolute;
+	bottom:20px;
+	left:20px;
+}
+
+#animations {
+	color:MidnightBlue;
+	position:absolute;
+	left:810px;
+	top:20px;
+	font-size:20px;
+	margin-top:10px;
+	margin-left:10px;
+}
+
+.colorSelector {
+	position: absolute;
+	font-size:16px;
+    margin-left:10px;
+}
+
+.colorSelector input{
+	position: absolute;
+	left: 100px;
+}
+
+#directional {
+	position: absolute;
+	top:80px;
+}
+
+#spot {
+	position: absolute;
+	top:120px;
+}
+
+#ambient {
+	position: absolute;
+	top:160px;
+}
+

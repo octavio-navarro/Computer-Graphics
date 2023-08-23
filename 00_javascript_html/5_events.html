@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+
+    <script src="5_events.js"></script>
+</head>
+
+<body onload="main()">
+    <div>
+        <p>Click the document to activate a handler!</p>
+    </div>
+
+    <div>
+        <button onclick="buttonClick()">Click me!</button>
+        <button id="whichB">Which button?</button>
+    </div>
+
+    <div>
+        <p id="textColorChange"> This text changes color when you hold the q key</p>
+    </div>
+
+    <div id="mousePosition">
+        Mouse position: ()
+    </div>
+
+    <div>
+        <input id="slider" type="range" min="0" max="10" step="1" value="0" style="width:500px">
+        <div id="sliderValue">Value: 0</div>
+    </div>
+
+</body>
+
+</html>

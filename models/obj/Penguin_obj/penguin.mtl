@@ -1,0 +1,31 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+
+newmtl Penguin_Body
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 0.100000
+d 1.000000
+map_Kd peng_texture.jpg
+illum 2
+
+newmtl Penguin_Eye
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+map_Kd peng_eye_texture.jpg
+illum 2
+
+newmtl Penguin_tongue
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2

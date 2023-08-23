@@ -1,0 +1,16 @@
+body{
+	color:white;
+}
+
+#title {
+	position:absolute;
+	left:20px;
+	top:20px;
+}
+
+#animations{
+    position: absolute;
+
+    left: 20px;
+    top: 60px;
+}

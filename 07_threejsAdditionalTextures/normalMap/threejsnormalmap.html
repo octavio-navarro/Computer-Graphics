@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming 3D Applications in HTML5 and WebGL &mdash; Three.js Textures: Normal Mapping</title>
+
+<link rel="stylesheet" href="../../css/main.css" />
+<link rel="stylesheet" href="../../css/threejsnormalmap.css" />
+
+<script type="module" defer src="threejsNormalMap.js"></script>
+
+</head>
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+	<div id="title">
+		Three.js Textures: Normal Mapping
+	</div>
+	<div id="prompt">
+		Drag the mouse to rotate the scene<br>Drag the slider to scale.
+	</div>
+    <div id="status">
+	    <div id="rotation">rotation: 0,0,0</div>
+	    <div id="scale">scale: 1</div>
+    </div>
+	<div id="sliderContainer">
+		<input type="range" min="1" max="3" value="1" step="0.01" id="slider">
+	</div>
+</div>
+
+<div id="properties">
+Use these controls to change properties
+<div id="texturePicker">
+Normal Map 
+<input type="checkbox" checked id="textureCheckbox"></input> 
+</div> 
+
+</div>
+
+
+</html>
