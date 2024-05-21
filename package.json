@@ -1,0 +1,19 @@
+{
+  "name": "Computer-Graphics",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "three": "^0.164.1",
+    "vite": "^5.2.11"
+  }
+}

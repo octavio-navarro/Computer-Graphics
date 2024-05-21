@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+body {
+	color:LightBlue;
+}
+
+#title {
+	position:absolute;
+	left:20px;
+	top:20px;
+}
+
+#prompt {
+	position:absolute;
+	bottom:20px;
+	left:20px;
+}
+
+#status {
+	position:absolute;
+	bottom:20px;
+	width:200px;
+	height:40px;
+	right:250px;
+}
+
+#rotation {
+	position:absolute;
+	left:20px;
+	top:0px;
+}
+
+#scale {
+	position:absolute;
+	left:20px;
+	top:20px;
+}
+
+#slider {
+	position:absolute;
+	width:800px;
+	top:610px;
+	height:10px;
+	background:#e9e9e9;
+}
+
+#slider .ui-slider-handle {
+	height:12px;
+	top:-2px;
+	width:16px;
+}
+
+#container{
+	display:flex;
+}
+
+#properties{
+	display: flex;
+	color:MidnightBlue;
+	margin: 2%;
+	font-size:16px;
+	flex-direction: column;
+}
+	
+#materialPicker {
+	margin: 5%;
+	display: flex;
+}
+
+#materialRBGroup {
+	margin-left: 5%
+}

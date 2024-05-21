@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Three.js Scene Graph</title>
+		<script type="module" defer src="threejsscene.js"></script>
+	</head>
+	<body> 
+
+		<div id="container">
+			<canvas id="webglcanvas" width=800 height=600></canvas>
+			<div id="title">
+				Three.js Scene Graph/Transform Hierarchy
+			</div>
+			<div id="prompt">
+				Drag the mouse to rotate the scene<br>Drag the slider to scale.
+			</div>
+			<div id="status">
+				<div id="rotation">rotation: 0,0,0</div>
+				<div id="scale">scale: 1</div>
+			</div>
+		</div>
+		<div id="sliderContainer">
+			<input type="range" min="-2" max="2" value="1" step="0.01" id="slider">
+		</div>
+	</body>
+
+</html>
