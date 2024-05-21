@@ -1,14 +1,15 @@
-import * as THREE from '../libs/three.js/three.module.js'
-import { OrbitControls } from '../libs/three.js/controls/OrbitControls.js';
+import * as THREE from 'three'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 class BaseScene
 {
     static textures =
     {
         checkerTexture: ()=>{
-            const map = new THREE.TextureLoader().load('/images/checker_large.gif')
+            const map = new THREE.TextureLoader().load('../images/checker_large.gif')
             map.wrapS = map.wrapT = THREE.RepeatWrapping;
             map.repeat.set(8,8);
+            map.colorSpace = THREE.SRGBColorSpace
             return map;
         }
     };
